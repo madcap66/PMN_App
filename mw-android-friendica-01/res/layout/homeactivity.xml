@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+					*********************************************
+					*******  S M A L L    P H O N E   L A Y O U T           for HomeActivity
+					
+					-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <!-- rechts -->
+
+    <LinearLayout
+        android:id="@+id/right_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/header_gradient"
+            android:orientation="horizontal" >
+            
+            <Button
+                android:id="@+id/toggle_left_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--&gt;"/>
+                
+            
+            <TextView
+                android:id="@+id/header_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/toggle_left_bar"
+                android:text="@string/hello"
+                android:textColor="#000" 
+                android:maxLines="1">
+            </TextView>
+            <ProgressBar android:id="@+id/glob_progressbar" android:layout_width="40dp" android:layout_height="40dp" android:layout_alignParentRight="true"
+                android:indeterminate="true" android:layout_centerVertical="true" android:layout_marginLeft="10dp" android:layout_marginRight="10dp"
+                android:visibility="gone" />
+            
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/view_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minWidth="500dp" >
+        </RelativeLayout>
+    </LinearLayout>
+
+    
+    <!-- links -->
+
+    <LinearLayout
+        android:id="@+id/left_bar"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/subheader_gradient"
+            android:orientation="horizontal"
+            android:paddingBottom="5dip"
+            android:paddingLeft="10dip"
+            android:paddingTop="5dip"
+            android:id="@+id/left_bar_header" >
+
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:src="@drawable/ic_menu_archive" >
+            </ImageView>
+
+            <TextView
+                android:id="@+id/selected_clipboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="@string/loading_data"
+                android:textColor="#fff" 
+                android:maxLines="2">
+            </TextView>
+        </LinearLayout>
+
+        <fragment
+            android:id="@+id/menu_fragment"
+            android:name="de.wikilab.android.friendica01.MainMenuFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </fragment>
+    </LinearLayout>
+    
+    
+</RelativeLayout>
