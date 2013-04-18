@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GenericContentActivity extends FragmentActivity implements FragmentParentListener {
 	private static final String TAG="Friendica/GenericContentActivity";
@@ -24,7 +25,7 @@ public class GenericContentActivity extends FragmentActivity implements Fragment
 		
 		setContentView(R.layout.genericcontentactivity);
 		
-		TextView header_logo = (TextView) findViewById(R.id.header);
+		TextView header_logo = (TextView) findViewById(R.id.header_logo);
 		header_logo.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -45,13 +46,13 @@ public class GenericContentActivity extends FragmentActivity implements Fragment
 	
 	@Override
 	public void OnFragmentMessage(String message, Object arg1, Object arg2) {
-		if (message.equals(ContentFragment.FRGM_MSG_SET_HEADERTEXT)) {
+		if (message.equals("Set Header Text")) {
 			setHeadertext((String) arg1);
 		}
-		if (message.equals(ContentFragment.FRGM_MSG_SHW_LOADING_ANIMATION)) {
+		if (message.equals("Loading Animation")) {
 			((ProgressBar) findViewById(R.id.glob_progressbar)).setVisibility(((Integer)arg1).intValue());
 		}
-		if (message.equals(ContentFragment.FRGM_MSG_NAV_CONVERSATION)) {
+		if (message.equals("Navigate Conversation")) {
 			Intent in = new Intent(this, GenericContentActivity.class);
 			in.putExtra("target", "conversation:" + arg1);
 			startActivity(in);

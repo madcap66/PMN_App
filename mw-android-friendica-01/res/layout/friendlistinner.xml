@@ -11,7 +11,7 @@
         android:background="#ffeeaa"
         android:clickable="true"
         android:padding="10dp"
-        android:text="bla bla bla" />
+        android:text="@string/blahblahblah" />
 
     <FrameLayout
         android:layout_width="fill_parent"
@@ -25,12 +25,11 @@
             android:indeterminate="true" />
 
         <GridView
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/gridview"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:clipChildren="true"
-            android:columnWidth="175px"
+            android:columnWidth="175dp"
             android:gravity="center"
             android:horizontalSpacing="1dp"
             android:numColumns="auto_fit"

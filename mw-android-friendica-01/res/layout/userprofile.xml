@@ -11,17 +11,16 @@
         android:layout_alignParentTop="true"
         android:id="@+id/header" >
 
-        <include layout="@layout/header_logo" 
-        	android:id="@+id/text_logoletters"/>
+        <include layout="@layout/header_logo" />
 
         <TextView
             android:id="@+id/header_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/text_logoletters"
-            android:layout_toRightOf="@+id/text_logoletters"
+            android:layout_alignBaseline="@+id/header_logo"
+            android:layout_toRightOf="@+id/header_logo"
             android:text="Loading..."
-            android:textColor="#000" >
+            android:textColor="#FFF" >
         </TextView>
     </RelativeLayout>
 

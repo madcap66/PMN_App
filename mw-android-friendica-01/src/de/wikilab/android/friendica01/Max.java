@@ -131,7 +131,7 @@ public class Max {
     	AlarmManager a = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
     	piTimerNotifications = PendingIntent.getService(c, 1, new Intent(c, NotificationCheckerService.class), 0);
     	a.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, 0, AlarmManager.INTERVAL_FIFTEEN_MINUTES, piTimerNotifications);
-    	Toast.makeText(c, "Friendica: Notif. check timer run", Toast.LENGTH_SHORT).show();
+    	Toast.makeText(c, "PMN: Notif. check timer run", Toast.LENGTH_SHORT).show();
     	Log.i("Friendica", "done runTimer");
     }
     
@@ -141,7 +141,7 @@ public class Max {
     	AlarmManager a = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
     	a.cancel(piTimerNotifications);
     	piTimerNotifications = null;
-    	Toast.makeText(c, "Friendica: Notif. check timer cancel", Toast.LENGTH_SHORT).show();
+    	Toast.makeText(c, "PMN: Notif. check timer cancel", Toast.LENGTH_SHORT).show();
     	Log.i("Friendica", "done cancelTimer");
     }
 
@@ -194,7 +194,7 @@ public class Max {
 							JSONObject r = (JSONObject) t.getJsonResult();
 							String name = r.getString("name");
 							((TextView)ctx.findViewById(R.id.selected_clipboard)).setText(name);
-							((LoginListener) ctx).onLogin();
+							((LoginListener) ctx).OnLogin();
 							
 							
 							final TwAjax profileImgDl = new TwAjax();
@@ -237,7 +237,7 @@ public class Max {
 		Log.v(TAG, "... showLoginForm");
 		View myView = ctx.getLayoutInflater().inflate(R.layout.loginscreen, null, false);
 		final AlertDialog alert = new AlertDialog.Builder(ctx)
-		.setTitle("Login to Friendica")
+		.setTitle("Login to PMN")
 		.setView(myView)
 		.setOnCancelListener(new OnCancelListener() {
 			@Override

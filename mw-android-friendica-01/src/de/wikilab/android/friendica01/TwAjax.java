@@ -1,7 +1,7 @@
 package de.wikilab.android.friendica01;
-
-/*
- * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -77,11 +77,12 @@ import android.util.Base64;
 import android.util.Log;
 
 public class TwAjax extends Thread {
-	private static final String TAG = "Friendica/TwAjax";
-
+	private static final String TAG="Friendica/TwAjax";
+	
+	
 	{
 		java.util.logging.Logger.getLogger("org.apache.http.wire").setLevel(java.util.logging.Level.FINEST);
-		// java.util.logging.Logger.getLogger("org.apache.http.headers").setLevel(java.util.logging.Level.FINEST);
+		//java.util.logging.Logger.getLogger("org.apache.http.headers").setLevel(java.util.logging.Level.FINEST);
 
 		System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.SimpleLog");
 		System.setProperty("org.apache.commons.logging.simplelog.showdatetime", "true");
@@ -90,7 +91,7 @@ public class TwAjax extends Thread {
 		System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http.headers", "debug");
 
 	}
-
+	
 	private Runnable myCallback;
 	private Handler myHandler;
 	private String myMethod;
@@ -114,59 +115,55 @@ public class TwAjax extends Thread {
 	private int myProxyPort;
 	private static final BasicCookieStore cookieStoreManager = new BasicCookieStore();
 	public boolean ignoreSSLCerts = false;
-
+	
 	public class IgnoreCertsSSLSocketFactory extends SSLSocketFactory {
-		SSLContext sslContext = SSLContext.getInstance("TLS");
+	    SSLContext sslContext = SSLContext.getInstance("TLS");
 
-		public IgnoreCertsSSLSocketFactory(KeyStore truststore) throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException, UnrecoverableKeyException {
-			super(truststore);
+	    public IgnoreCertsSSLSocketFactory(KeyStore truststore) throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException, UnrecoverableKeyException {
+	        super(truststore);
 
-			TrustManager tm = new X509TrustManager() {
-				public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-				}
+	        TrustManager tm = new X509TrustManager() {
+	            public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+	            }
 
-				public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-				}
+	            public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+	            }
 
-				public X509Certificate[] getAcceptedIssuers() {
-					return null;
-				}
-			};
+	            public X509Certificate[] getAcceptedIssuers() {
+	                return null;
+	            }
+	        };
 
-			sslContext.init(null, new TrustManager[] { tm }, null);
-		}
+	        sslContext.init(null, new TrustManager[] { tm }, null);
+	    }
 
-		@Override
-		public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException, UnknownHostException {
-			return sslContext.getSocketFactory().createSocket(socket, host, port, autoClose);
-		}
+	    @Override
+	    public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException, UnknownHostException {
+	        return sslContext.getSocketFactory().createSocket(socket, host, port, autoClose);
+	    }
 
-		@Override
-		public Socket createSocket() throws IOException {
-			return sslContext.getSocketFactory().createSocket();
-		}
+	    @Override
+	    public Socket createSocket() throws IOException {
+	        return sslContext.getSocketFactory().createSocket();
+	    }
 	}
 
+	
 	public static class PostFile {
-		public static final int MAX_BUFFER_SIZE = 1 * 1024 * 1024;
-		private String fieldName, remoteFilename;
+		public static final int MAX_BUFFER_SIZE = 1*1024*1024;
+		private String fieldName,remoteFilename;
 		private File file;
-
 		public PostFile(String postFieldName, String attachmentFileName, String localFileName) {
-			fieldName = postFieldName;
-			remoteFilename = attachmentFileName;
-			file = new File(localFileName);
+			fieldName=postFieldName; remoteFilename=attachmentFileName;
+			file=new File(localFileName);			
 		}
-
 		public PostFile(String postFieldName, String attachmentFileName, File localFile) {
-			fieldName = postFieldName;
-			remoteFilename = attachmentFileName;
-			file = localFile;
+			fieldName=postFieldName; remoteFilename=attachmentFileName;
+			file=localFile;			
 		}
-
 		public void writeToStream(DataOutputStream outputStream, String boundary) throws IOException {
 			outputStream.writeBytes("--" + boundary + "\r\n");
-			outputStream.writeBytes("Content-Disposition: form-data; name=\"" + fieldName + "\"; filename=\"" + remoteFilename + "\"" + "\r\n");
+			outputStream.writeBytes("Content-Disposition: form-data; name=\"" + fieldName + "\"; filename=\"" + remoteFilename +"\"" + "\r\n");
 			outputStream.writeBytes("\r\n");
 
 			FileInputStream fileInputStream = new FileInputStream(file);
@@ -187,13 +184,12 @@ public class TwAjax extends Thread {
 			fileInputStream.close();
 		}
 	}
-
+	
 	public void addPostFile(PostFile file) {
-		if (myPostFiles == null)
-			myPostFiles = new ArrayList<PostFile>();
+		if (myPostFiles == null) myPostFiles = new ArrayList<PostFile>();
 		myPostFiles.add(file);
 	}
-
+	
 	/*
 	HttpURLConnection connection = null;
 	DataOutputStream outputStream = null;
@@ -263,278 +259,255 @@ public class TwAjax extends Thread {
 	//Exception handling
 	}
 	*/
-
+	
 	public void updateProxySettings(Context ctx) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		myProxyIp = prefs.getString("proxy_host", null);
 		if (myProxyIp == null || myProxyIp.equals("")) {
 			myProxyIp = null;
-
+			
 			ProxySelector defaultProxySelector = ProxySelector.getDefault();
-			List<Proxy> proxyList = defaultProxySelector.select(URI.create("http://frnd.tk"));
-			// Log.i("TwAjax", "proxyCount="+proxyList.size()+"|"+((InetSocketAddress)proxyList.get(0).address()).getHostName());
-			if (proxyList.size() == 0 || proxyList.get(0).address() == null) {
-				return;
+	        List<Proxy> proxyList = defaultProxySelector.select(URI.create("http://frnd.tk"));
+	        //Log.i("TwAjax", "proxyCount="+proxyList.size()+"|"+((InetSocketAddress)proxyList.get(0).address()).getHostName());
+	        if (proxyList.size() == 0 || proxyList.get(0).address() == null) {
+	        	return;
 			}
-			myProxyIp = ((InetSocketAddress) proxyList.get(0).address()).getHostName();
-			myProxyPort = ((InetSocketAddress) proxyList.get(0).address()).getPort();
+			myProxyIp = ((InetSocketAddress)proxyList.get(0).address()).getHostName();
+			myProxyPort = ((InetSocketAddress)proxyList.get(0).address()).getPort();
 		} else {
 			myProxyPort = Integer.valueOf(prefs.getString("proxy_port", null));
 		}
-
-		// for(String key:prefs.getAll().keySet()) {
-		// Log.w("PREF:",key+"="+prefs.getAll().get(key).toString());
-		// }
+		
+		//for(String key:prefs.getAll().keySet()) {
+		//Log.w("PREF:",key+"="+prefs.getAll().get(key).toString());	
+		//}
 		myProxyUsername = prefs.getString("proxy_user", null);
 		myProxyPassword = prefs.getString("proxy_password", null);
 		Log.i("TwAjax", "PROXY SETTINGS:");
 		Log.i("TwAjax", "Host=" + myProxyIp);
 		Log.i("TwAjax", "Port=" + myProxyPort);
 		Log.i("TwAjax", "User=" + myProxyUsername);
-
+		
 	}
-
+	
 	public TwAjax() {
 	}
-
 	public TwAjax(String sessionID) {
 		twSession = sessionID;
 	}
-
 	public TwAjax(Context ctx, boolean updateProxySettings, boolean initializeLoginData) {
-		if (initializeLoginData)
-			this.initializeLoginData(ctx);
-		if (updateProxySettings)
-			this.updateProxySettings(ctx);
-
+		if (initializeLoginData) this.initializeLoginData(ctx);
+		if (updateProxySettings) this.updateProxySettings(ctx);
+		
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-		if (prefs.getBoolean("ssl_unsafe", false) == true)
-			ignoreSSLCerts = true;
-
+		if(prefs.getBoolean("ssl_unsafe", false) == true) ignoreSSLCerts = true;
+		
 	}
-
+	
 	public String getURL() {
 		return myUrl;
 	}
-
 	public void setURL(String newUrl) {
 		myUrl = newUrl;
 	}
-
 	public String getMethod() {
 		return myMethod;
 	}
-
 	public void setMethod(String newMethod) {
 		myMethod = newMethod;
 	}
-
 	public List<NameValuePair> getPostData() {
 		return myPostData;
 	}
-
 	public void setPostData(List<NameValuePair> newPostData) {
 		myPostData = newPostData;
 	}
-
 	public void addPostData(String key, String value) {
-		if (myPostData == null)
-			myPostData = new ArrayList<NameValuePair>();
+		if (myPostData == null) myPostData = new ArrayList<NameValuePair>();
 		myPostData.add(new BasicNameValuePair(key, value));
 	}
-
 	public boolean initializeLoginData(Context ctx) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		String userName = prefs.getString("login_user", null);
-		if (userName == null || userName.length() < 1)
-			return false;
+		if (userName == null || userName.length() < 1) return false;
 		this.myHttpAuthUser = userName;
 		this.myHttpAuthPass = prefs.getString("login_password", null);
 		return true;
 	}
-
 	public int getHttpCode() {
 		return myHttpStatus;
 	}
-
 	public boolean isSuccess() {
 		return success;
 	}
-
 	public Exception getError() {
 		return myError;
 	}
-
 	public Object getJsonResult() {
-		if (!success)
-			return null;
+		if (!success) return null;
 		try {
 			JSONTokener jt = new JSONTokener(myResult);
 			return jt.nextValue();
 		} catch (JSONException ex) {
-			// server returned malformed data
+			//server returned malformed data
 			return null;
 		}
 	}
-
 	public String getResult() {
 		return myResult;
 	}
-
 	public Bitmap getBitmapResult() {
 		return myBmpResult;
 	}
-
 	public Document getXmlDocumentResult() {
 		return myXmlDocument;
 	}
-
+	
 	public void run() {
-		try {
+        try {
 			if (myPostFiles == null) {
 				runDefault();
 			} else {
 				runFileUpload();
 			}
-		} catch (Exception e) {
-			success = false;
-			myError = e;
-		}
-		if (myHandler != null && myCallback != null)
-			myHandler.post(myCallback);
+        } catch (Exception e) {
+        	success=false;
+        	myError = e;
+        }
+        if (myHandler != null && myCallback != null) myHandler.post(myCallback);
 	}
+	
+    private void setHttpClientProxy(DefaultHttpClient httpclient) {
+    	if (myProxyIp == null) return;
+    	
+        httpclient.getCredentialsProvider().setCredentials(  
+                new AuthScope(myProxyIp, myProxyPort),  
+                new UsernamePasswordCredentials(  
+                        myProxyUsername, myProxyPassword));  
 
-	private void setHttpClientProxy(DefaultHttpClient httpclient) {
-		if (myProxyIp == null)
-			return;
+       HttpHost proxy = new HttpHost(myProxyIp, myProxyPort);  
 
-		httpclient.getCredentialsProvider().setCredentials(new AuthScope(myProxyIp, myProxyPort), new UsernamePasswordCredentials(myProxyUsername, myProxyPassword));
+       httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);  
 
-		HttpHost proxy = new HttpHost(myProxyIp, myProxyPort);
 
-		httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+    }  
+	
+    public DefaultHttpClient getNewHttpClient() {
+        if (ignoreSSLCerts) {
+    	try {
+            KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
+            trustStore.load(null, null);
 
-	}
+            SSLSocketFactory sf = new IgnoreCertsSSLSocketFactory(trustStore);
+            sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
 
-	public DefaultHttpClient getNewHttpClient() {
-		if (ignoreSSLCerts) {
-			try {
-				KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
-				trustStore.load(null, null);
+            HttpParams params = new BasicHttpParams();
+            HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
+            HttpProtocolParams.setContentCharset(params, HTTP.UTF_8);
 
-				SSLSocketFactory sf = new IgnoreCertsSSLSocketFactory(trustStore);
-				sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+            SchemeRegistry registry = new SchemeRegistry();
+            registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+            registry.register(new Scheme("https", sf, 443));
 
-				HttpParams params = new BasicHttpParams();
-				HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
-				HttpProtocolParams.setContentCharset(params, HTTP.UTF_8);
+            ClientConnectionManager ccm = new ThreadSafeClientConnManager(params, registry);
 
-				SchemeRegistry registry = new SchemeRegistry();
-				registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
-				registry.register(new Scheme("https", sf, 443));
+            return new DefaultHttpClient(ccm, params);
+        } catch (Exception e) {
+            return new DefaultHttpClient();
+        }
+        } else {
+            return new DefaultHttpClient();
+        }
+    }
 
-				ClientConnectionManager ccm = new ThreadSafeClientConnManager(params, registry);
-
-				return new DefaultHttpClient(ccm, params);
-			} catch (Exception e) {
-				return new DefaultHttpClient();
-			}
-		} else {
-			return new DefaultHttpClient();
-		}
-	}
-
+    
 	private void runDefault() throws IOException {
-		Log.v("TwAjax", "runDefault URL=" + myUrl);
-
+		Log.v("TwAjax", "runDefault URL="+myUrl);
+		
 		// Create a new HttpClient and Get/Post Header
 		DefaultHttpClient httpclient = getNewHttpClient();
-		setHttpClientProxy(httpclient);
-		httpclient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
-		// final HttpParams params = new BasicHttpParams();
-		HttpClientParams.setRedirecting(httpclient.getParams(), false);
+        setHttpClientProxy(httpclient);
+        httpclient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
+        //final HttpParams params = new BasicHttpParams();
+        HttpClientParams.setRedirecting(httpclient.getParams(), false);
 
-		HttpRequestBase m;
-		if (myMethod == "POST") {
-			m = new HttpPost(myUrl);
-			((HttpPost) m).setEntity(new UrlEncodedFormEntity(myPostData, "utf-8"));
-		} else {
-			m = new HttpGet(myUrl);
-		}
-		m.addHeader("Host", m.getURI().getHost());
-		if (twSession != null)
-			m.addHeader("Cookie", "twnetSID=" + twSession);
-		httpclient.setCookieStore(cookieStoreManager);
-
-		// generate auth header if user/pass are provided to this class
+        HttpRequestBase m;
+        if (myMethod == "POST") {
+	        m = new HttpPost(myUrl);
+	        ((HttpPost)m).setEntity(new UrlEncodedFormEntity(myPostData, "utf-8"));
+        } else {
+        	m = new HttpGet(myUrl);
+        }
+        m.addHeader("Host", m.getURI().getHost());
+        if (twSession != null) m.addHeader("Cookie", "twnetSID=" + twSession);
+        httpclient.setCookieStore(cookieStoreManager);
+        
+		//generate auth header if user/pass are provided to this class
 		if (this.myHttpAuthUser != null) {
-			m.addHeader("Authorization", "Basic " + Base64.encodeToString((this.myHttpAuthUser + ":" + this.myHttpAuthPass).getBytes(), Base64.NO_WRAP));
+			m.addHeader("Authorization", "Basic "+Base64.encodeToString((this.myHttpAuthUser+":"+this.myHttpAuthPass).getBytes(), Base64.NO_WRAP));
 		}
-		// Execute HTTP Get/Post Request
-		HttpResponse response = httpclient.execute(m);
-		// InputStream is = response.getEntity().getContent();
-		myHttpStatus = response.getStatusLine().getStatusCode();
-		if (this.fetchHeader != null) {
-			this.fetchHeaderResult = response.getHeaders(this.fetchHeader);
-			Header[] h = response.getAllHeaders();
-			for (Header hh : h)
-				Log.d(TAG, "Header " + hh.getName() + "=" + hh.getValue());
+        // Execute HTTP Get/Post Request
+        HttpResponse response = httpclient.execute(m);
+        //InputStream is = response.getEntity().getContent();
+        myHttpStatus = response.getStatusLine().getStatusCode();
+        if (this.fetchHeader != null) {
+        	this.fetchHeaderResult = response.getHeaders(this.fetchHeader);
+        	Header[] h = response.getAllHeaders();
+        	for(Header hh : h) Log.d(TAG, "Header "+hh.getName()+"="+hh.getValue());
+        	
+        } else if (this.downloadToFile != null) {
+        	Log.v("TwAjax", "runDefault downloadToFile="+downloadToFile);
+            // download the file
+            InputStream input = new BufferedInputStream(response.getEntity().getContent());
+            OutputStream output = new FileOutputStream(downloadToFile);
 
-		} else if (this.downloadToFile != null) {
-			Log.v("TwAjax", "runDefault downloadToFile=" + downloadToFile);
-			// download the file
-			InputStream input = new BufferedInputStream(response.getEntity().getContent());
-			OutputStream output = new FileOutputStream(downloadToFile);
+            byte data[] = new byte[1024];
 
-			byte data[] = new byte[1024];
+            long total = 0; int count;
+            while ((count = input.read(data)) != -1) {
+                total += count;
+                // publishing the progress....
+                //publishProgress((int)(total*100/lenghtOfFile));
+                output.write(data, 0, count);
+            }
 
-			long total = 0;
-			int count;
-			while ((count = input.read(data)) != -1) {
-				total += count;
-				// publishing the progress....
-				// publishProgress((int)(total*100/lenghtOfFile));
-				output.write(data, 0, count);
-			}
-
-			output.flush();
-			output.close();
-			input.close();
-		} else if (this.convertToBitmap) {
-			myBmpResult = BitmapFactory.decodeStream(response.getEntity().getContent());
-		} else if (this.convertToXml) {
-			try {
+            output.flush();
+            output.close();
+            input.close();
+        } else if (this.convertToBitmap) {
+        	myBmpResult = BitmapFactory.decodeStream(response.getEntity().getContent());
+        } else if (this.convertToXml) {
+        	try {
 				myXmlDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(response.getEntity().getContent());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return;
 			}
+        	
+        } else {
+            myResult = EntityUtils.toString(response.getEntity(), "UTF-8");
+        }
+        //BufferedInputStream bis = new BufferedInputStream(is);
+        //ByteArrayBuffer baf = new ByteArrayBuffer(50);
 
-		} else {
-			myResult = EntityUtils.toString(response.getEntity(), "UTF-8");
-		}
-		// BufferedInputStream bis = new BufferedInputStream(is);
-		// ByteArrayBuffer baf = new ByteArrayBuffer(50);
+        //int current = 0;
+        //while((current = bis.read()) != -1){
+        //    baf.append((byte)current);
+        //}
 
-		// int current = 0;
-		// while((current = bis.read()) != -1){
-		// baf.append((byte)current);
-		// }
-
-		// myResult = new String(baf.toByteArray(), "utf-8");
-		success = true;
+        //myResult = new String(baf.toByteArray(), "utf-8");
+        success=true;
 	}
-
 	private void runFileUpload() throws IOException {
 
 		String lineEnd = "\r\n";
 		String twoHyphens = "--";
-		String boundary = "d1934afa-f2e4-449b-99be-8be6ebfec594";
-		Log.i("Andfrnd/TwAjax", "URL=" + getURL());
+		String boundary =  "d1934afa-f2e4-449b-99be-8be6ebfec594";
+		Log.i("Andfrnd/TwAjax", "URL="+getURL());
 		URL url = new URL(getURL());
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
+		
 		// Allow Inputs & Outputs
 		connection.setDoInput(true);
 		connection.setDoOutput(true);
@@ -543,23 +516,23 @@ public class TwAjax extends Thread {
 		// Enable POST method
 		connection.setRequestMethod("POST");
 
-		// generate auth header if user/pass are provided to this class
+		//generate auth header if user/pass are provided to this class
 		if (this.myHttpAuthUser != null) {
-			connection.setRequestProperty("Authorization", "Basic " + Base64.encodeToString((this.myHttpAuthUser + ":" + this.myHttpAuthPass).getBytes(), Base64.NO_WRAP));
+			connection.setRequestProperty("Authorization", "Basic "+Base64.encodeToString((this.myHttpAuthUser+":"+this.myHttpAuthPass).getBytes(), Base64.NO_WRAP));
 		}
-		// Log.i("Andfrnd","-->"+connection.getRequestProperty("Authorization")+"<--");
-
+		//Log.i("Andfrnd","-->"+connection.getRequestProperty("Authorization")+"<--");
+		
 		connection.setRequestProperty("Host", url.getHost());
 		connection.setRequestProperty("Connection", "Keep-Alive");
-		connection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+		connection.setRequestProperty("Content-Type", "multipart/form-data;boundary="+boundary);
 
-		DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
-		for (NameValuePair nvp : myPostData) {
+		DataOutputStream outputStream = new DataOutputStream( connection.getOutputStream() );
+		for(NameValuePair nvp : myPostData) {
 			outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-			outputStream.writeBytes("Content-Disposition: form-data; name=\"" + nvp.getName() + "\"" + lineEnd);
-			outputStream.writeBytes(lineEnd + nvp.getValue() + lineEnd);
+			outputStream.writeBytes("Content-Disposition: form-data; name=\""+nvp.getName()+"\"" + lineEnd);
+			outputStream.writeBytes(lineEnd+nvp.getValue()+lineEnd);
 		}
-		for (PostFile pf : myPostFiles) {
+		for(PostFile pf : myPostFiles) {
 			pf.writeToStream(outputStream, boundary);
 		}
 		outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
@@ -569,17 +542,16 @@ public class TwAjax extends Thread {
 
 		outputStream.flush();
 		outputStream.close();
-
+		
 		if (myHttpStatus < 400) {
 			myResult = convertStreamToString(connection.getInputStream());
 		} else {
 			myResult = convertStreamToString(connection.getErrorStream());
 		}
-
-		success = true;
+		
+        success=true;
 	}
-
-	public String convertStreamToString(InputStream is) throws IOException {
+    public String convertStreamToString(InputStream is) throws IOException {
 		/*
 		 * To convert the InputStream to String we use the
 		 * Reader.read(char[] buffer) method. We iterate until the
@@ -588,23 +560,22 @@ public class TwAjax extends Thread {
 		 */
 		if (is != null) {
 			StringWriter writer = new StringWriter();
-
-			char[] buffer = new char[1024];
-			try {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-				int n;
-				while ((n = reader.read(buffer)) != -1) {
-					writer.write(buffer, 0, n);
-				}
-			} finally {
-				is.close();
-			}
-			return writer.toString();
-		} else {
-			return "";
+		
+		    char[] buffer = new char[1024];
+		    try {
+		    	BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+		        int n;
+		        while ((n = reader.read(buffer)) != -1) {
+		            writer.write(buffer, 0, n);
+		        }
+		    } finally {
+		        is.close();
+		    }
+		    return writer.toString();
+		} else {        
+		    return "";
 		}
 	}
-
 	public void fetchUrlHeader(String method, String url, String headerFieldToFetch, Runnable callback) {
 		this.myMethod = method;
 		this.myUrl = url;
@@ -617,7 +588,6 @@ public class TwAjax extends Thread {
 			this.run();
 		}
 	}
-
 	public void getUrlContent(String url, Runnable callback) {
 		this.myMethod = "GET";
 		this.myUrl = url;
@@ -629,7 +599,6 @@ public class TwAjax extends Thread {
 			this.run();
 		}
 	}
-
 	public void getUrlBitmap(String url, Runnable callback) {
 		this.myMethod = "GET";
 		this.myUrl = url;
@@ -642,7 +611,6 @@ public class TwAjax extends Thread {
 			this.run();
 		}
 	}
-
 	public void getUrlXmlDocument(String url, Runnable callback) {
 		this.myMethod = "GET";
 		this.myUrl = url;
@@ -655,7 +623,6 @@ public class TwAjax extends Thread {
 			this.run();
 		}
 	}
-
 	public void urlDownloadToFile(String url, String targetFileSpec, Runnable callback) {
 		this.myMethod = "GET";
 		this.myUrl = url;
@@ -668,43 +635,35 @@ public class TwAjax extends Thread {
 			this.run();
 		}
 	}
-
 	public void uploadFile(String url, Runnable callback) {
 		try {
 			this.myMethod = "POST";
 			this.myUrl = url;
 			this.myCallback = callback;
-			if (callback != null) { // async
+			if (callback != null) { //async
 				this.myHandler = new Handler();
 				this.start();
-			} else { // sync
+			} else { //sync
 				this.run();
 			}
 		} catch (Exception e) {
-			success = false;
-			myError = e;
-			if (callback != null)
-				callback.run();
+			success=false; myError=e; if (callback != null) callback.run();
 		}
 	}
-
 	public void postData(String url, Runnable callback) {
 		try {
 			this.myMethod = "POST";
 			this.myUrl = url;
 			this.myCallback = callback;
-			if (callback != null) { // async
+			if (callback != null) { //async
 				this.myHandler = new Handler();
 				this.start();
-			} else { // sync
+			} else { //sync
 				this.run();
 			}
 		} catch (Exception e) {
-			success = false;
-			myError = e;
-			if (callback != null)
-				callback.run();
+			success=false; myError=e; if (callback != null) callback.run();
 		}
 	}
-
+	
 }

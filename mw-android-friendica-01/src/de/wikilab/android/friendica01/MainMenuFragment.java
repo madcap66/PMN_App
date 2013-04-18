@@ -1,12 +1,15 @@
 package de.wikilab.android.friendica01;
-
-/*
- * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 import java.util.ArrayList;
 
 import org.w3c.dom.Document;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,64 +18,64 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class MainMenuFragment extends Fragment implements LoginListener {
-	private static final String TAG = "Friendica/MainMenuFragment";
-
+	private static final String TAG="Friendica/MainMenuFragment";
+	
+	
 	View mainView;
-
+	
 	ListView lvw;
 
-	private int selectedItemIndex = -1;
-
+	private int selectedItemIndex=-1;
+	
 	public final ArrayList<String> MainList = new ArrayList<String>();
-
+	
+	
 	private void appendNumber(ArrayList<String> listWithNotifications, int index, String number) {
 		listWithNotifications.set(index, listWithNotifications.get(index) + " <b>[<font color=red>" + number + "</font>]</b>");
 	}
-
+	
 	public void UpdateList() {
-
+		
 		final TwAjax t = new TwAjax(getActivity(), true, true);
 		t.getUrlXmlDocument(Max.getServer(getActivity()) + "/ping", new Runnable() {
-			// t.getUrlContent("http://" + server + "/ping", new Runnable() {
+		//t.getUrlContent("http://" + server + "/ping", new Runnable() {
 			@Override
 			public void run() {
 				ArrayList<String> listWithNotifications = (ArrayList<String>) MainList.clone();
 
 				Document xd = t.getXmlDocumentResult();
-
+				
 				try {
 					appendNumber(listWithNotifications, 0, xd.getElementsByTagName("net").item(0).getTextContent());
-					// } catch (Exception ingoreException) {}
-
-					// try {
+				//} catch (Exception ingoreException) {}
+				
+				//try {
 					appendNumber(listWithNotifications, 4, xd.getElementsByTagName("intro").item(0).getTextContent() + " intros");
-					// } catch (Exception ingoreException) {}
-
-					// try {
+				//} catch (Exception ingoreException) {}
+				
+				//try {
 					appendNumber(listWithNotifications, 2, xd.getElementsByTagName("home").item(0).getTextContent());
-					// } catch (Exception ingoreException) {}
-
-					// try {
+				//} catch (Exception ingoreException) {}
+				
+				//try {
 					appendNumber(listWithNotifications, 1, xd.getElementsByTagName("notif").item(0).getAttributes().getNamedItem("count").getNodeValue());
-					// } catch (Exception ingoreException) {}
-
-					// try {
+				//} catch (Exception ingoreException) {}
+				
+				//try {
 					lvw.setAdapter(new HtmlStringArrayAdapter(getActivity(), R.layout.mainmenuitem, android.R.id.text1, listWithNotifications));
-					if (selectedItemIndex > -1)
-						((HtmlStringArrayAdapter) lvw.getAdapter()).setSelectedItemIndex(selectedItemIndex);
-				} catch (Exception ignoreException) {
-				}
+					if (selectedItemIndex>-1)((HtmlStringArrayAdapter)lvw.getAdapter()).setSelectedItemIndex(selectedItemIndex);
+				} catch (Exception ignoreException) {}
 			}
 		});
-		// lvw.setAdapter(new HtmlStringArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, MainList));
+		//lvw.setAdapter(new HtmlStringArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, MainList));
 	}
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (savedInstanceState != null) {
 			if (savedInstanceState.containsKey("selectedItemIndex")) {
-				selectedItemIndex = savedInstanceState.getInt("selectedItemIndex");
+				selectedItemIndex=savedInstanceState.getInt("selectedItemIndex");
 			}
 		}
 	}
@@ -82,50 +85,52 @@ public class MainMenuFragment extends Fragment implements LoginListener {
 		outState.putInt("selectedItemIndex", selectedItemIndex);
 		super.onSaveInstanceState(outState);
 	}
-
+	
 	@Override
 	public void onResume() {
 		UpdateList();
 		super.onResume();
 	}
-
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+		
 		mainView = inflater.inflate(R.layout.mainmenu, container);
-
+		
 		lvw = (ListView) mainView.findViewById(R.id.listview);
 		lvw.setAdapter(new HtmlStringArrayAdapter(getActivity(), R.layout.mainmenuitem, android.R.id.text1, MainList));
-		if (selectedItemIndex > -1)
-			((HtmlStringArrayAdapter) lvw.getAdapter()).setSelectedItemIndex(selectedItemIndex);
-
+		if (selectedItemIndex>-1)((HtmlStringArrayAdapter)lvw.getAdapter()).setSelectedItemIndex(selectedItemIndex);
+		
 		MainList.add(getString(R.string.mm_timeline));
 		MainList.add(getString(R.string.mm_notifications));
 		MainList.add(getString(R.string.mm_mywall));
 		MainList.add(getString(R.string.mm_myphotoalbums));
 		MainList.add(getString(R.string.mm_friends));
-
 		MainList.add(getString(R.string.mm_directmessages));
-		MainList.add(getString(R.string.menuitem_map));
-
+		MainList.add(getString(R.string.mm_updatemystatus));
+		MainList.add(getString(R.string.mm_takephoto));
+		MainList.add(getString(R.string.mm_selectphoto));
 		MainList.add(getString(R.string.mm_preferences));
 		MainList.add(getString(R.string.mm_logout));
 
 		return mainView;
 	}
 
-	@Override
-	public void onLogin() {
-		UpdateList();
 
+	
+	@Override
+	public void OnLogin() {
+		UpdateList();
+		
 		lvw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int index, long arg3) {
-				((FragmentParentListener) getActivity()).OnFragmentMessage(ContentFragment.FRGM_MSG_NAV_MAINMENU, MainList.get(index), null);
-				((HtmlStringArrayAdapter) lvw.getAdapter()).setSelectedItemIndex(index);
-				selectedItemIndex = index;
+			@Override public void onItemClick(AdapterView<?> arg0, View arg1, int index, long arg3) {
+				((FragmentParentListener)getActivity()).OnFragmentMessage("Navigate Main Menu", MainList.get(index), null);
+				((HtmlStringArrayAdapter)lvw.getAdapter()).setSelectedItemIndex(index);
+				selectedItemIndex=index;
 			}
 		});
 	}
+	
+	
 
 }

@@ -9,16 +9,9 @@ import android.view.View;
 public abstract class ContentFragment extends Fragment {
 	private static final String TAG="Friendica/ContentFragment";
 	
-	protected View myView;
+	View myView;
 	
 	String navigateOrder = null;
-
-	public static final String FRGM_MSG_SHW_LOADING_ANIMATION="Loading Animation";
-
-	public static final String FRGM_MSG_SET_HEADERTEXT="Set Header Text";
-
-	public static final String FRGM_MSG_NAV_MAINMENU="Navigate Main Menu";
-	public static final String FRGM_MSG_NAV_CONVERSATION="Navigate Conversation";
 	
 	@Override
 	public void onAttach(Activity activity) {
@@ -41,7 +34,7 @@ public abstract class ContentFragment extends Fragment {
 	
 	protected abstract void onNavigate(String target);
 	
-	public void SendMessage(String message, Object arg1, Object arg2) {
+	protected void SendMessage(String message, Object arg1, Object arg2) {
 		try{
 			((FragmentParentListener)getActivity()).OnFragmentMessage(message, arg1, arg2);
 		} catch(Exception ignoreException) {}
