@@ -1,4 +1,4 @@
-package de.wikilab.android.friendica01;
+package com.privatemembersnetwork.android.pmn01;
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -12,6 +12,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gcm.GCMBaseIntentService;
+
+import com.privatemembersnetwork.android.pmn01.R;
 
 public class GCMIntentService extends GCMBaseIntentService {
 	private static final String TAG = "Friendica.GCMIntentService";
@@ -69,7 +71,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 			not.vibrate = new long[]{0,200,100,400};
 			not.icon = android.R.drawable.ic_popup_reminder;
 			//.setAutoCancel(true)
-			not.sound = Uri.parse("android.resource://de.wikilab.android.friendica01/" + R.raw.doorbell2);
+			not.sound = Uri.parse("android.resource://com.privatemembersnetwork.android.pmn01/" + R.raw.doorbell2);
 			not.when = System.currentTimeMillis();
 			
 			noti.notify((int) (System.currentTimeMillis()/1000), not);

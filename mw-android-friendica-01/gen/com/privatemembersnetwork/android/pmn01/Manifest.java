@@ -5,10 +5,10 @@
  * should not be modified by hand.
  */
 
-package de.wikilab.android.friendica01;
+package com.privatemembersnetwork.android.pmn01;
 
 public final class Manifest {
     public static final class permission {
-        public static final String C2D_MESSAGE="de.wikilab.android.friendica01.permission.C2D_MESSAGE";
+        public static final String C2D_MESSAGE="com.privatemembersnetwork.android.pmn01.permission.C2D_MESSAGE";
     }
 }

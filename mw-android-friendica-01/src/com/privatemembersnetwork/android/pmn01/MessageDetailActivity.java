@@ -1,4 +1,4 @@
-package de.wikilab.android.friendica01;
+package com.privatemembersnetwork.android.pmn01;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.privatemembersnetwork.android.pmn01.R;
 
 import android.app.Activity;
 import android.content.Intent;

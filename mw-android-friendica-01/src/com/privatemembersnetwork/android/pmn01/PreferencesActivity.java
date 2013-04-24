@@ -1,4 +1,4 @@
-package de.wikilab.android.friendica01;
+package com.privatemembersnetwork.android.pmn01;
 
 import java.net.Proxy;
 import java.net.ProxySelector;
@@ -22,6 +22,8 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 
 import com.google.android.gcm.GCMRegistrar;
+
+import com.privatemembersnetwork.android.pmn01.R;
 
 public class PreferencesActivity  extends PreferenceActivity implements OnSharedPreferenceChangeListener  {
 	private static final String TAG="Friendica/PreferencesActivity";

@@ -4,7 +4,7 @@
     <string name="hello">Hello World!</string>
     <string name="timeline">Timeline</string>
     <string name="notifications">Notifications</string>
-    <string name="app_name">P-M-N</string>
+    <string name="app_name">PrivateMembersNetwork</string>
     <string name="intf_fileupload2">PrivateMembersNetwork</string>
 
     <string name="loading_data">Loading&#8230;</string>
@@ -18,9 +18,9 @@
     <string name="password">Password</string>
     <string name="login">Log in</string>
     
-    <string name="app_title_html">PMN</string>
+    <string name="app_title_html">Private Members Network</string>
     <string name="privatemembersnetwork_com">privatemembersnetwork.com</string>
-    
+    <string name="pmn">privatemembersnetwork.com</string>
     <string name="upload_file">Upload a photo</string>
     <string name="upload_now">Start upload</string>
     <string name="viewLatLon">Post Current Location</string>

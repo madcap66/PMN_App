@@ -1,4 +1,4 @@
-package de.wikilab.android.friendica01;
+package com.privatemembersnetwork.android.pmn01;
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -18,6 +18,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.json.JSONObject;
+
+import com.privatemembersnetwork.android.pmn01.R;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -63,7 +65,7 @@ public class Max {
 	
 
 
-	public static final String DATA_DIR = "/sdcard/Android/data/de.wikilab.android.friendica01";
+	public static final String DATA_DIR = "/sdcard/Android/data/com.privatemembersnetwork.android.pmn01";
 	public static final String IMG_CACHE_DIR = DATA_DIR + "/cache/imgs";
 	
 	public static PendingIntent piTimerNotifications;

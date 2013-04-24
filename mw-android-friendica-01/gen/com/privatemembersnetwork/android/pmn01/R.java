@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package de.wikilab.android.friendica01;
+package com.privatemembersnetwork.android.pmn01;
 
 public final class R {
     public static final class anim {
@@ -247,30 +247,31 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class string {
         public static final int app_name=0x7f090009;
         public static final int app_title_html=0x7f090011;
-        public static final int blahblahblah=0x7f090019;
-        public static final int fake_data_notice=0x7f090026;
+        public static final int blahblahblah=0x7f09001a;
+        public static final int fake_data_notice=0x7f090027;
         public static final int hello=0x7f090006;
         public static final int intf_fileupload2=0x7f09000a;
         public static final int loading_data=0x7f09000b;
         public static final int login=0x7f090010;
-        public static final int mm_directmessages=0x7f090020;
-        public static final int mm_friends=0x7f09001f;
-        public static final int mm_logout=0x7f090025;
-        public static final int mm_myphotoalbums=0x7f09001e;
-        public static final int mm_mywall=0x7f09001d;
-        public static final int mm_notifications=0x7f09001c;
-        public static final int mm_preferences=0x7f090024;
-        public static final int mm_selectphoto=0x7f090023;
-        public static final int mm_takephoto=0x7f090022;
-        public static final int mm_timeline=0x7f09001b;
-        public static final int mm_updatemystatus=0x7f090021;
+        public static final int mm_directmessages=0x7f090021;
+        public static final int mm_friends=0x7f090020;
+        public static final int mm_logout=0x7f090026;
+        public static final int mm_myphotoalbums=0x7f09001f;
+        public static final int mm_mywall=0x7f09001e;
+        public static final int mm_notifications=0x7f09001d;
+        public static final int mm_preferences=0x7f090025;
+        public static final int mm_selectphoto=0x7f090024;
+        public static final int mm_takephoto=0x7f090023;
+        public static final int mm_timeline=0x7f09001c;
+        public static final int mm_updatemystatus=0x7f090022;
         public static final int notifications=0x7f090008;
         public static final int password=0x7f09000f;
-        public static final int post=0x7f090018;
-        public static final int post_status_update=0x7f090017;
+        public static final int pmn=0x7f090013;
+        public static final int post=0x7f090019;
+        public static final int post_status_update=0x7f090018;
         public static final int privatemembersnetwork_com=0x7f090012;
         public static final int protocol=0x7f09000c;
-        public static final int proxy_settings=0x7f090016;
+        public static final int proxy_settings=0x7f090017;
         /**  Just use standard Pull Down String when pulling up. These can be set for languages which require it 
          */
         public static final int pull_to_refresh_from_bottom_pull_label=0x7f090003;
@@ -281,11 +282,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int pull_to_refresh_release_label=0x7f090001;
         public static final int server=0x7f09000d;
         public static final int timeline=0x7f090007;
-        public static final int todo=0x7f09001a;
-        public static final int upload_file=0x7f090013;
-        public static final int upload_now=0x7f090014;
+        public static final int todo=0x7f09001b;
+        public static final int upload_file=0x7f090014;
+        public static final int upload_now=0x7f090015;
         public static final int username=0x7f09000e;
-        public static final int viewLatLon=0x7f090015;
+        public static final int viewLatLon=0x7f090016;
     }
     public static final class xml {
         public static final int prefs_main=0x7f050000;
@@ -297,13 +298,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrAdapterViewBackground de.wikilab.android.friendica01:ptrAdapterViewBackground}</code></td><td></td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrDrawable de.wikilab.android.friendica01:ptrDrawable}</code></td><td></td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrHeaderBackground de.wikilab.android.friendica01:ptrHeaderBackground}</code></td><td></td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrHeaderSubTextColor de.wikilab.android.friendica01:ptrHeaderSubTextColor}</code></td><td></td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrHeaderTextColor de.wikilab.android.friendica01:ptrHeaderTextColor}</code></td><td></td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrMode de.wikilab.android.friendica01:ptrMode}</code></td><td></td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrShowIndicator de.wikilab.android.friendica01:ptrShowIndicator}</code></td><td></td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrAdapterViewBackground com.privatemembersnetwork.android.pmn01:ptrAdapterViewBackground}</code></td><td></td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrDrawable com.privatemembersnetwork.android.pmn01:ptrDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrHeaderBackground com.privatemembersnetwork.android.pmn01:ptrHeaderBackground}</code></td><td></td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrHeaderSubTextColor com.privatemembersnetwork.android.pmn01:ptrHeaderSubTextColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrHeaderTextColor com.privatemembersnetwork.android.pmn01:ptrHeaderTextColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrMode com.privatemembersnetwork.android.pmn01:ptrMode}</code></td><td></td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrShowIndicator com.privatemembersnetwork.android.pmn01:ptrShowIndicator}</code></td><td></td></tr>
            </table>
            @see #PullToRefresh_ptrAdapterViewBackground
            @see #PullToRefresh_ptrDrawable
@@ -318,7 +319,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
             0x7f010004, 0x7f010005, 0x7f010006
         };
         /**
-          <p>This symbol is the offset where the {@link de.wikilab.android.friendica01.R.attr#ptrAdapterViewBackground}
+          <p>This symbol is the offset where the {@link com.privatemembersnetwork.android.pmn01.R.attr#ptrAdapterViewBackground}
           attribute's value can be found in the {@link #PullToRefresh} array.
 
 
@@ -330,7 +331,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int PullToRefresh_ptrAdapterViewBackground = 0;
         /**
-          <p>This symbol is the offset where the {@link de.wikilab.android.friendica01.R.attr#ptrDrawable}
+          <p>This symbol is the offset where the {@link com.privatemembersnetwork.android.pmn01.R.attr#ptrDrawable}
           attribute's value can be found in the {@link #PullToRefresh} array.
 
 
@@ -340,7 +341,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int PullToRefresh_ptrDrawable = 6;
         /**
-          <p>This symbol is the offset where the {@link de.wikilab.android.friendica01.R.attr#ptrHeaderBackground}
+          <p>This symbol is the offset where the {@link com.privatemembersnetwork.android.pmn01.R.attr#ptrHeaderBackground}
           attribute's value can be found in the {@link #PullToRefresh} array.
 
 
@@ -352,7 +353,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int PullToRefresh_ptrHeaderBackground = 1;
         /**
-          <p>This symbol is the offset where the {@link de.wikilab.android.friendica01.R.attr#ptrHeaderSubTextColor}
+          <p>This symbol is the offset where the {@link com.privatemembersnetwork.android.pmn01.R.attr#ptrHeaderSubTextColor}
           attribute's value can be found in the {@link #PullToRefresh} array.
 
 
@@ -364,7 +365,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int PullToRefresh_ptrHeaderSubTextColor = 3;
         /**
-          <p>This symbol is the offset where the {@link de.wikilab.android.friendica01.R.attr#ptrHeaderTextColor}
+          <p>This symbol is the offset where the {@link com.privatemembersnetwork.android.pmn01.R.attr#ptrHeaderTextColor}
           attribute's value can be found in the {@link #PullToRefresh} array.
 
 
@@ -376,7 +377,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int PullToRefresh_ptrHeaderTextColor = 2;
         /**
-          <p>This symbol is the offset where the {@link de.wikilab.android.friendica01.R.attr#ptrMode}
+          <p>This symbol is the offset where the {@link com.privatemembersnetwork.android.pmn01.R.attr#ptrMode}
           attribute's value can be found in the {@link #PullToRefresh} array.
 
 
@@ -394,7 +395,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int PullToRefresh_ptrMode = 4;
         /**
-          <p>This symbol is the offset where the {@link de.wikilab.android.friendica01.R.attr#ptrShowIndicator}
+          <p>This symbol is the offset where the {@link com.privatemembersnetwork.android.pmn01.R.attr#ptrShowIndicator}
           attribute's value can be found in the {@link #PullToRefresh} array.
 
 

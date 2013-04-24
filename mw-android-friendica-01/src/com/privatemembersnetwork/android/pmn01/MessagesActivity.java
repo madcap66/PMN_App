@@ -1,4 +1,5 @@
-/*package de.wikilab.android.friendica01;
+package com.privatemembersnetwork.android.pmn01;
+/*package com.privatemembersnetwork.android.pmn01;
 
 import java.util.ArrayList;
 

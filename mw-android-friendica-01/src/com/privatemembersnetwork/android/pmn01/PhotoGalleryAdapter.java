@@ -1,6 +1,8 @@
-package de.wikilab.android.friendica01;
+package com.privatemembersnetwork.android.pmn01;
 
 import java.io.File;
+
+import com.privatemembersnetwork.android.pmn01.R;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;

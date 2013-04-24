@@ -1,5 +1,5 @@
 
-package de.wikilab.android.friendica01;
+package com.privatemembersnetwork.android.pmn01;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -28,6 +28,8 @@ import android.widget.WrapperListAdapter;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
+import com.privatemembersnetwork.android.pmn01.R;
 
 public class PostListFragment extends ContentFragment {
 	private static final String TAG="Friendica/PostListFragment";

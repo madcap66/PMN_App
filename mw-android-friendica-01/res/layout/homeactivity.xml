@@ -2,12 +2,13 @@
 <!--
 					*********************************************
 					*******  S M A L L    P H O N E   L A Y O U T           for HomeActivity
-
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    tools:context=".HomeActivity" >
 
     <!-- rechts -->
 
@@ -22,30 +23,34 @@
             android:layout_height="wrap_content"
             android:background="@drawable/header_gradient"
             android:orientation="horizontal" >
-            
+
             <Button
                 android:id="@+id/toggle_left_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="--&gt;"/>
-                
-            
+                android:text="-->" />
+
             <TextView
                 android:id="@+id/header_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/toggle_left_bar"
+                android:maxLines="1"
                 android:text="@string/hello"
-                android:textColor="#000" 
-                android:maxLines="1">
+                android:textColor="#fff" >
             </TextView>
-			<!-- 
-            <include layout="@layout/glob_searchbox"/>
-             -->
-            <ProgressBar android:id="@+id/glob_progressbar" android:layout_width="40dp" android:layout_height="40dp" android:layout_alignParentRight="true"
-                android:indeterminate="true" android:layout_centerVertical="true" android:layout_marginLeft="10dp" android:layout_marginRight="10dp"
+<!--             <include layout="@layout/glob_searchbox"/> -->
+
+            <ProgressBar
+                android:id="@+id/glob_progressbar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:indeterminate="true"
                 android:visibility="gone" />
-            
         </RelativeLayout>
 
         <RelativeLayout
@@ -56,7 +61,6 @@
         </RelativeLayout>
     </LinearLayout>
 
-    
     <!-- links -->
 
     <LinearLayout
@@ -66,14 +70,14 @@
         android:orientation="vertical" >
 
         <LinearLayout
+            android:id="@+id/left_bar_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/subheader_gradient"
             android:orientation="horizontal"
             android:paddingBottom="5dip"
             android:paddingLeft="10dip"
-            android:paddingTop="5dip"
-            android:id="@+id/left_bar_header" >
+            android:paddingTop="5dip" >
 
             <ImageView
                 android:id="@+id/profile_image"
@@ -86,20 +90,19 @@
                 android:id="@+id/selected_clipboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLines="2"
                 android:paddingLeft="10dp"
                 android:text="@string/loading_data"
-                android:textColor="#fff" 
-                android:maxLines="2">
+                android:textColor="#fff" >
             </TextView>
         </LinearLayout>
 
         <fragment
             android:id="@+id/menu_fragment"
-            android:name="de.wikilab.android.friendica01.MainMenuFragment"
+            android:name="com.privatemembersnetwork.android.pmn01.MainMenuFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
         </fragment>
     </LinearLayout>
-    
-    
+
 </RelativeLayout>

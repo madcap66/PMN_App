@@ -1,10 +1,12 @@
-package de.wikilab.android.friendica01;
+package com.privatemembersnetwork.android.pmn01;
 
 import java.io.File;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+
+import com.privatemembersnetwork.android.pmn01.R;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package de.wikilab.android.friendica01;
+package com.privatemembersnetwork.android.pmn01;
 
 import java.util.ArrayList;
 
@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
+import com.privatemembersnetwork.android.pmn01.R;
 
 public class PostDetailFragment extends ContentFragment {
 	private static final String TAG="Friendica/PostDetailFragment";

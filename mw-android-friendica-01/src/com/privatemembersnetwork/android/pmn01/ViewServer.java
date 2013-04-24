@@ -1,4 +1,4 @@
-package de.wikilab.android.friendica01;
+package com.privatemembersnetwork.android.pmn01;
 /*
  * Copyright (C) 2011 The Android Open Source Project
  *

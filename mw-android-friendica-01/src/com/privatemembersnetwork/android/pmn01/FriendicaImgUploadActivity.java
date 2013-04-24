@@ -1,5 +1,6 @@
-package de.wikilab.android.friendica01;
+package com.privatemembersnetwork.android.pmn01;
 
+import com.privatemembersnetwork.android.pmn01.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
