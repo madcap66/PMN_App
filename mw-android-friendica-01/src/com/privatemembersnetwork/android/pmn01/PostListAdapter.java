@@ -1,4 +1,4 @@
-package de.wikilab.android.friendica01;
+package com.privatemembersnetwork.android.pmn01;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.privatemembersnetwork.android.pmn01.R;
 
 import android.content.Context;
 import android.content.Intent;
